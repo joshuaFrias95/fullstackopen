@@ -1,0 +1,40 @@
+title 0.5
+
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+Server-->Browser: HTML - Code
+Browser->Server: HTTP GET 	https://studies.cs.helsinki.fi/exampleapp/main.css
+Server-->Browser: main.css
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+Server-->Browser: spa.js
+
+note over Browser
+Browser starts executing JS code
+that requests JSON data from server
+end note
+
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+
+note right of Browser
+Browser makes a new note
+in the input area
+end note
+
+Browser->Server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+Server-->Browser: message: "note created"
+
+note left of Server
+Server adds a new note in the data.json file
+and makes a new <li> element inside the <ul> tag
+end note
+
+note right of Server
+content-type: application/json
+end note
+
+Server-->Browser: [{ content: "yes yes", date: "2023-02-25T04:57:10.827Z" }]
+
+note over Server
+The server responds with HTTP status code 201 Created
+This time the server does not ask for a redirect,
+the browser stays on the same page and don´t send more HTTP Requests.
+end note
