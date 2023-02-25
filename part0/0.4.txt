@@ -1,0 +1,42 @@
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+server-->browser: HTML-code
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server-->browser: main.css
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+server-->browser: main.js
+
+note over browser:
+browser starts executing js-code
+that requests JSON data from server 
+end note
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+
+note over browser:
+Browser makes a new note over 
+in the input area
+end note 
+
+note over server
+Server add the new note in the data.json file
+and makes a new <li> tag inside of the <ul tag
+end note 
+
+server->browser: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+server-->browser: [{ content: "response", date: "2023-02-25T03:45:27.627Z"}]
+
+note over browser:
+browser executes the event handler
+that renders notes to display
+end note
+
+note over server
+The server responds with HTTP status code 302
+asking the browser to do a new HTTP GET request
+to the address defined in the header's Location
+end note
+server-->browser: HTTP Status Code 302 / asks to do a new HTTP GET request
+
+note over browser:
+Browser makes a new GET request,
+reload the file and show the new note
